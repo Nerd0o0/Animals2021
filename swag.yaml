@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  contact:
+    email: "apiteam@swagger.io"
+tags:
+- name: "html"
+  description: "Everything about your Pets"
+- name: "animal"
+  description: "Access to Petstore orders"
+schemes:
+- "http"
+paths:
+  /:
+    get:
+      tags:
+      - "html"
+      summary: "Show all animals in html format"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "405":
+          description: "Invalid input"
+          schema:
+           $ref: "#/definitions/Animals"
+  /animals:
+    get:
+      tags:
+      - "animal"
+      summary: "Get all animals"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Animals"
+    post:
+      tags:
+      - "animal"
+      summary: "Create new animal"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            required:
+              - name
+            properties:
+              name:
+                type: string
+                description: "Name of animal"
+              kind:
+                type: string
+                description: "Kind of animal"
+
+      responses:
+        "405":
+          description: "Invalid input"
+  /animal/{name}:
+    get:
+      tags:
+      - "animal"
+      summary: "Get animal by name"
+      parameters:
+        - in: "path"
+          name: "name"
+          type: string
+          required: True
+      responses:
+        "200":
+          description: "Success, author gotten"
+          schema:
+            $ref: "#/definitions/Animal"
+    patch:
+      tags:
+      - "animal"
+      summary: "Update an existing author"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "name"
+        type: string
+        required: True
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          properties:
+            name:
+              type: string
+              description: "Name of animal"
+            kind:
+              type: string
+              description: "Kind of animal"
+      responses:
+        "200":
+          description: "Author patched"
+          schema:
+            $ref: "#/definitions/Animal"
+    delete:
+      tags:
+      - "animal"
+      summary: "Delete an existing author"
+      parameters:
+        - in: "path"
+          name: "name"
+          type: string
+          required: true
+      responses:
+        "200":
+          description: "Author deleted"
+          schema:
+            $ref: "#/definitions/Animal"
+definitions:
+  Animal:
+    type: object
+    properties:
+      name:
+        type: string
+      kind:
+        type: string
+  Animals:
+    type: array
+    items:
+      name:
+        type: string
+      kind:
+        type: string
