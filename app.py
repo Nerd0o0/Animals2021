@@ -8,7 +8,7 @@ from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
 run_with_ngrok(app)
-swagger = Swagger(app, template_file='/swag.yaml')
+swagger = Swagger(app, template_file='swag.yaml')
 
 class Animal:
   name = ''
