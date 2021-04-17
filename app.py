@@ -54,9 +54,7 @@ def get_by_name(name):
   for elem in animals:
     if elem.name == name:
       return AnimalSchema().dumps(elem)
-  ###############
   return {"message": "Not found"}, 404
-  ###############
 
 @app.route('/animal/<string:name>', methods=['DELETE'])
 def delete_by_name(name):
