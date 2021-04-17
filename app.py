@@ -48,10 +48,10 @@ def add_animal():
 
 @app.route('/animal/<string:name>')
 def get_by_name(name):
-  # TODO если такое животное не найдено, возвращать  return {"message": "Not found"}, 404
   for elem in animals:
     if elem.name == name:
       return AnimalSchema().dumps(elem)
+  return {"message": "Not found"}, 404
 
 @app.route('/animal/<string:name>', methods=['DELETE'])
 def delete_by_name(name):
