@@ -41,9 +41,8 @@ def get_animals():
 
 @app.route('/animals', methods=['POST'])
 def add_animal():
-  # TODO если пользователь не передал name и kind возвращать  return {"message": "Name is required"}, 400
   ###############
-  if request.json.get('name') == '' || request.json.get('kind') == '':
+  if request.json.get('name') == '' or request.json.get('kind') == '':
     return {"message": "Name is required"}, 400
   ###############
   animal = Animal(request.json.get('name'), request.json.get('kind'))
@@ -55,35 +54,28 @@ def get_by_name(name):
   for elem in animals:
     if elem.name == name:
       return AnimalSchema().dumps(elem)
-  
-  # TODO если такое животное не найдено, возвращать  return {"message": "Not found"}, 404
   ###############
   return {"message": "Not found"}, 404
   ###############
 
 @app.route('/animal/<string:name>', methods=['DELETE'])
 def delete_by_name(name):
-  # TODO если такое животное не найдено, возвращать  return {"message": "Not found"}, 404
-  # TODO реализовать удаление животного по имени
-  # найти животное в массиве по имени, удалить из массива, вернуть кого удалили
   ###############
   for elem in animals:
     if elem.name == name:
       animals.remove(elem)
-      return name
+      return AnimalSchema().dumps(elem)
   
   return {"message": "Not found"}, 404
   ###############
 
-@app.route('/animal/<string:name>:<string:kind>', methods=['PATCH'])
-def patch_by_name(name, kind):
-  # TODO если такое животное не найдено, возвращать  return {"message": "Not found"}, 404
-  # TODO реализовать изменение животного по имени
-  # найти животное в массиве по имени, изменить его, вернуть что получилось
+@app.route('/animal/<string:name>', methods=['PATCH'])
+def patch_by_name(name):
   ###############
   for elem in animals:
     if elem.name == name:
-      elem.kind = kind
+      elem.name = request.json.get('name')
+      elem.kind = request.json.get('kind')
       return AnimalSchema().dumps(elem)
   
   return {"message": "Not found"}, 404
