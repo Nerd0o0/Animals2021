@@ -84,7 +84,7 @@ paths:
     patch:
       tags:
       - "animal"
-      summary: "Update an existing author"
+      summary: "Update an existing animal"
       consumes:
       - "application/json"
       produces:
@@ -113,7 +113,7 @@ paths:
     delete:
       tags:
       - "animal"
-      summary: "Delete an existing author"
+      summary: "Delete an existing animal"
       parameters:
         - in: "path"
           name: "name"
